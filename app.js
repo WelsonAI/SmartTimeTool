@@ -171,8 +171,9 @@
   ].map(id => [id, document.getElementById(id)]));
   const stepTexts = [document.getElementById("stepOne"),document.getElementById("stepTwo"),document.getElementById("stepThree")];
   let audioContext = null;
+  let gearNoiseBuffer = null;
   let lastGearTickAt = 0;
-  let gearTickHigh = false;
+  let gearTooth = 0;
 
   const t = () => translations[state.lang];
   const year = () => Number(state.level.slice(1));
@@ -245,27 +246,58 @@
     } catch (_) { /* Sound is optional when the browser blocks Web Audio. */ }
   }
 
-  function playGearTick() {
+  function playGearTick(intensity = .55) {
     if (!state.sound) return;
     const wallTime = performance.now();
-    if (wallTime - lastGearTickAt < 28) return;
+    const strength = Math.min(1,Math.max(.25,intensity));
+    const minimumGap = 36 - strength * 16;
+    if (wallTime - lastGearTickAt < minimumGap) return;
     lastGearTickAt = wallTime;
     try {
       audioContext ??= new (window.AudioContext || window.webkitAudioContext)();
-      if (audioContext.state === "suspended") audioContext.resume();
+      if (audioContext.state === "suspended") audioContext.resume().catch(() => {});
       const now = audioContext.currentTime;
-      const oscillator = audioContext.createOscillator();
-      const gain = audioContext.createGain();
-      oscillator.type = "square";
-      oscillator.frequency.setValueAtTime(gearTickHigh ? 245 : 190,now);
-      oscillator.frequency.exponentialRampToValueAtTime(85,now + .035);
-      gain.gain.setValueAtTime(.0001,now);
-      gain.gain.exponentialRampToValueAtTime(.045,now + .003);
-      gain.gain.exponentialRampToValueAtTime(.0001,now + .04);
-      oscillator.connect(gain).connect(audioContext.destination);
-      oscillator.start(now);
-      oscillator.stop(now + .045);
-      gearTickHigh = !gearTickHigh;
+
+      if (!gearNoiseBuffer || gearNoiseBuffer.sampleRate !== audioContext.sampleRate) {
+        const frameCount = Math.ceil(audioContext.sampleRate * .045);
+        gearNoiseBuffer = audioContext.createBuffer(1,frameCount,audioContext.sampleRate);
+        const samples = gearNoiseBuffer.getChannelData(0);
+        for (let index = 0; index < frameCount; index += 1) {
+          const decay = 1 - index / frameCount;
+          samples[index] = (Math.random() * 2 - 1) * decay * decay;
+        }
+      }
+
+      // A filtered noise snap sounds like two gear teeth meeting. Small pitch
+      // changes keep a quick drag from turning into one electronic buzz.
+      const toothSnap = audioContext.createBufferSource();
+      const toothFilter = audioContext.createBiquadFilter();
+      const toothGain = audioContext.createGain();
+      toothSnap.buffer = gearNoiseBuffer;
+      toothSnap.playbackRate.value = .92 + (gearTooth % 4) * .045;
+      toothFilter.type = "bandpass";
+      toothFilter.frequency.value = 1350 + (gearTooth % 3) * 180;
+      toothFilter.Q.value = .75;
+      toothGain.gain.setValueAtTime(.0001,now);
+      toothGain.gain.exponentialRampToValueAtTime(.018 + strength * .025,now + .002);
+      toothGain.gain.exponentialRampToValueAtTime(.0001,now + .03);
+      toothSnap.connect(toothFilter).connect(toothGain).connect(audioContext.destination);
+      toothSnap.start(now);
+      toothSnap.stop(now + .04);
+
+      // A quiet, low wooden knock gives the click some mechanical weight.
+      const body = audioContext.createOscillator();
+      const bodyGain = audioContext.createGain();
+      body.type = "triangle";
+      body.frequency.setValueAtTime(118 + (gearTooth % 2) * 9,now);
+      body.frequency.exponentialRampToValueAtTime(72,now + .025);
+      bodyGain.gain.setValueAtTime(.0001,now);
+      bodyGain.gain.exponentialRampToValueAtTime(.006 + strength * .008,now + .002);
+      bodyGain.gain.exponentialRampToValueAtTime(.0001,now + .032);
+      body.connect(bodyGain).connect(audioContext.destination);
+      body.start(now);
+      body.stop(now + .036);
+      gearTooth = (gearTooth + 1) % 12;
     } catch (_) { /* Sound is optional when the browser blocks Web Audio. */ }
   }
 
@@ -723,6 +755,7 @@
     if (!clock) return;
     let activeHand = null;
     let activePointer = null;
+    let lastClockMoveAt = 0;
 
     const updateFromPointer = event => {
       if (!activeHand) return;
@@ -748,7 +781,12 @@
       }
       updateFreeClockDom();
       const after = `${state.freeClock.hour}:${state.freeClock.minute}:${state.freeClock.second}`;
-      if (after !== before) playGearTick();
+      if (after !== before) {
+        const movedAt = performance.now();
+        const moveGap = lastClockMoveAt ? movedAt - lastClockMoveAt : 80;
+        lastClockMoveAt = movedAt;
+        playGearTick(Math.min(1,45 / Math.max(16,moveGap)));
+      }
     };
 
     clock.querySelectorAll("[data-hand]").forEach(hand => {
@@ -756,6 +794,7 @@
         event.preventDefault();
         activeHand = hand.dataset.hand;
         activePointer = event.pointerId;
+        lastClockMoveAt = 0;
         hand.classList.add("dragging");
         try { clock.setPointerCapture(activePointer); } catch (_) { /* Synthetic events may not own capture. */ }
         updateFromPointer(event);
