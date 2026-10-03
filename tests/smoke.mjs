@@ -87,7 +87,7 @@ for (const [level,modes] of Object.entries(expectedModes)) {
   })()`);
   if (result.visible.join(",") !== modes.join(",")) throw new Error(`${level} modes mismatch: ${result.visible}`);
   if (result.checks.some(check => !check.stage)) throw new Error(`${level} has an empty visual stage.`);
-  if (result.checks.some(check => check.activity !== "set" && check.options < 2)) throw new Error(`${level} has missing answer options.`);
+  if (result.checks.some(check => !["set","explore"].includes(check.activity) && check.options < 2)) throw new Error(`${level} has missing answer options.`);
   if (result.overflow > 1) throw new Error(`${level} mobile overflow: ${result.overflow}px`);
 }
 
@@ -111,6 +111,23 @@ if (!interaction.success) throw new Error("Answer checking did not reach a succe
 if (!interaction.modalOpen) throw new Error("Teacher modal did not open.");
 if (interaction.zh !== "zh-CN") throw new Error("Chinese language switch failed.");
 if (interaction.overflow > 1) throw new Error(`Chinese mobile overflow: ${interaction.overflow}px`);
+
+const freeClock = await evaluate(`(()=>{
+  const level=document.getElementById('levelSelect'); level.value='d3'; level.dispatchEvent(new Event('change',{bubbles:true}));
+  document.querySelector('[data-mode="clock"]').click();
+  const activity=document.getElementById('activitySelect'); activity.value='explore'; activity.dispatchEvent(new Event('change',{bubbles:true}));
+  const clock=document.querySelector('[data-free-clock]');
+  const second=clock.querySelector('[data-hand="second"]');
+  const rect=clock.getBoundingClientRect();
+  const pointer={bubbles:true,pointerId:9,clientX:rect.left+rect.width,clientY:rect.top+rect.height/2};
+  second.dispatchEvent(new PointerEvent('pointerdown',pointer));
+  clock.dispatchEvent(new PointerEvent('pointermove',pointer));
+  clock.dispatchEvent(new PointerEvent('pointerup',pointer));
+  return {hands:clock.querySelectorAll('[data-hand]').length,readout:document.getElementById('freeClockReadout').textContent,checkHidden:document.getElementById('checkBtn').hidden};
+})()`);
+if (freeClock.hands !== 3) throw new Error(`Year 3 free clock has ${freeClock.hands} hands.`);
+if (!freeClock.readout.endsWith(':15')) throw new Error(`Dragging the second hand did not update the time: ${freeClock.readout}`);
+if (!freeClock.checkHidden) throw new Error("Free clock should not show an answer-check button.");
 
 const conversionChecks = await evaluate(`(async()=>{
   const cases=[

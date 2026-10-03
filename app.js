@@ -10,7 +10,7 @@
       teacherMode: "Soalan guru", customQuestion: "Bina soalan sendiri", newQuestion: "Cuba soalan lain", yourTask: "Mari cuba!",
       reset: "Mula semula", check: "Semak", next: "Soalan seterusnya", cancel: "Batal", useQuestion: "Guna soalan ini",
       activities: {
-        read: "Baca jam", set: "Putar jarum", seconds: "Kenali saat", schedule: "Baca jadual waktu", system: "Sistem 12/24 jam",
+        read: "Baca jam", set: "Putar jarum", explore: "Teroka jam sendiri", seconds: "Kenali saat", schedule: "Baca jadual waktu", system: "Sistem 12/24 jam",
         findEnd: "Cari waktu tamat", findStart: "Cari waktu mula", duration: "Cari tempoh", timeMath: "Kira tempoh",
         weekday: "Cari hari", countDays: "Kira hari", dateDuration: "Tempoh tarikh",
         basic: "Hubungan asas", mixed: "Tukar unit masa", largeUnits: "Unit masa besar", fractionDecimal: "Pecahan dan perpuluhan",
@@ -33,7 +33,7 @@
         d6: "Buku teks: zon masa dunia, beza waktu dan perubahan tarikh."
       },
       questions: {
-        read: "Pukul berapakah ini?", set: "Putarkan jarum kepada waktu ini.", seconds: "Berapa saat ditunjukkan oleh jarum saat?", schedule: "Aktiviti manakah berlaku pada waktu ini?",
+        read: "Pukul berapakah ini?", set: "Putarkan jarum kepada waktu ini.", explore: "Seret jarum dan perhatikan waktu yang ditunjukkan.", seconds: "Berapa saat ditunjukkan oleh jarum saat?", schedule: "Aktiviti manakah berlaku pada waktu ini?",
         system: "Pilih waktu yang sama.", findEnd: "Pukul berapakah aktiviti tamat?", findStart: "Pukul berapakah aktiviti bermula?",
         duration: "Berapakah tempoh antara dua waktu?", timeMath: "Berapakah jumlah tempoh?", weekday: "Hari apakah tarikh ini?",
         countDays: "Apakah tarikhnya selepas tempoh ini?", dateDuration: "Berapakah tempoh antara dua tarikh?",
@@ -47,7 +47,8 @@
       teacherIntro: "Masukkan nilai mengikut skop buku teks bagi tahun ini.", hour: "Jam", minute: "Minit", period: "Waktu", duration: "Tempoh (minit)", day: "Tarikh", offsetDays: "Bilangan hari", value: "Nilai", fromUnit: "Daripada unit", toUnit: "Kepada unit", baseCity: "Bandar diberi", targetCity: "Bandar sasaran",
       chooseFirst: "Pilih satu jawapan dahulu.", enterFirst: "Masukkan jawapan dahulu.", correct: "Betul!", wrong: "Belum tepat. Perhatikan visual sekali lagi.",
       exactMinute: "Tahun 2 menggunakan gandaan 5 minit.", invalid: "Masukkan nilai yang sah mengikut had aktiviti ini.", different: "Pilih dua unit atau bandar yang berlainan.",
-      ready: "Perhatikan visual, kemudian pilih jawapan.", readySet: "Gunakan butang untuk menggerakkan jarum.",
+      ready: "Perhatikan visual, kemudian pilih jawapan.", readySet: "Gunakan butang untuk menggerakkan jarum.", readyExplore: "Seret setiap jarum. Waktu digital berubah serta-merta.", shownTime: "Waktu yang ditunjukkan",
+      hands: { hour: "Jarum jam", minute: "Jarum minit", second: "Jarum saat" },
       steps: ["Perhatikan masa", "Cuba jawapan", "Semak dan faham"],
       cities: { london: "London", riyadh: "Riyadh", delhi: "New Delhi", kuala: "Kuala Lumpur", tokyo: "Tokyo", perth: "Perth" }
     },
@@ -59,7 +60,7 @@
       teacherMode: "老师出题", customQuestion: "自订题目", newQuestion: "换一道题", yourTask: "试试看！",
       reset: "重新开始", check: "检查", next: "下一题", cancel: "取消", useQuestion: "使用这道题",
       activities: {
-        read: "读时刻", set: "拨时钟", seconds: "认识秒", schedule: "读时间表", system: "12/24 时计时法",
+        read: "读时刻", set: "拨时钟", explore: "自由拨钟", seconds: "认识秒", schedule: "读时间表", system: "12/24 时计时法",
         findEnd: "找结束时刻", findStart: "找开始时刻", duration: "找相隔时间", timeMath: "时间计算",
         weekday: "找星期", countDays: "数日子", dateDuration: "日期间隔",
         basic: "基本关系", mixed: "时间单位换算", largeUnits: "较大时间单位", fractionDecimal: "分数与小数时间",
@@ -82,7 +83,7 @@
         d6: "课本范围：世界时区、时差和日期变化。"
       },
       questions: {
-        read: "这个钟面显示什么时刻？", set: "把指针拨到这个时刻。", seconds: "秒针表示多少秒？", schedule: "这个时刻进行什么活动？", system: "选择相同的时刻。",
+        read: "这个钟面显示什么时刻？", set: "把指针拨到这个时刻。", explore: "拖动指针，观察钟面显示的时间。", seconds: "秒针表示多少秒？", schedule: "这个时刻进行什么活动？", system: "选择相同的时刻。",
         findEnd: "活动在什么时刻结束？", findStart: "活动在什么时刻开始？", duration: "两个时刻相隔多久？", timeMath: "总时间是多少？",
         weekday: "这个日期是星期几？", countDays: "经过这些天后是什么日期？", dateDuration: "两个日期相隔多久？", convert: "换算这个时间单位。",
         localTime: "目标城市是什么时刻？", difference: "两个城市相差多少时间？"
@@ -95,7 +96,8 @@
       teacherIntro: "请按照这个年级课本的范围输入数值。", hour: "时", minute: "分", period: "时段", duration: "时长（分钟）", day: "日期", offsetDays: "天数", value: "数值", fromUnit: "原来的单位", toUnit: "换成的单位", baseCity: "已知城市", targetCity: "目标城市",
       chooseFirst: "请先选择一个答案。", enterFirst: "请先输入答案。", correct: "答对了！", wrong: "还不正确，请再观察图示。",
       exactMinute: "二年级课本使用 5 分钟的倍数。", invalid: "请输入符合这个活动范围的数值。", different: "请选择不同的两个单位或城市。",
-      ready: "观察图示后选择答案。", readySet: "使用按钮移动指针。",
+      ready: "观察图示后选择答案。", readySet: "使用按钮移动指针。", readyExplore: "直接拖动每一根指针，数字时间会马上改变。", shownTime: "现在显示的时间",
+      hands: { hour: "时针", minute: "分针", second: "秒针" },
       steps: ["观察时间", "尝试作答", "检查并理解"],
       cities: { london: "伦敦", riyadh: "利雅得", delhi: "新德里", kuala: "吉隆坡", tokyo: "东京", perth: "珀斯" }
     },
@@ -107,7 +109,7 @@
       teacherMode: "Teacher question", customQuestion: "Make your own question", newQuestion: "Try another question", yourTask: "Let's try!",
       reset: "Start again", check: "Check", next: "Next question", cancel: "Cancel", useQuestion: "Use this question",
       activities: {
-        read: "Read the clock", set: "Set the clock", seconds: "Explore seconds", schedule: "Read a timetable", system: "12/24-hour time",
+        read: "Read the clock", set: "Set the clock", explore: "Explore the clock", seconds: "Explore seconds", schedule: "Read a timetable", system: "12/24-hour time",
         findEnd: "Find the end time", findStart: "Find the start time", duration: "Find the duration", timeMath: "Calculate time",
         weekday: "Find the weekday", countDays: "Count days", dateDuration: "Date duration",
         basic: "Basic relationships", mixed: "Convert time units", largeUnits: "Larger time units", fractionDecimal: "Fractions and decimals",
@@ -122,7 +124,7 @@
         d5: "Textbook scope: duration across dates and fractional/decimal time conversions.",
         d6: "Textbook scope: world time zones, time differences and date changes."
       },
-      questions: { read: "What time does the clock show?", set: "Set the hands to this time.", seconds: "How many seconds does the second hand show?", schedule: "Which activity happens at this time?", system: "Choose the same time.", findEnd: "What time does the activity end?", findStart: "What time does the activity start?", duration: "How long is it between the two times?", timeMath: "What is the total duration?", weekday: "What weekday is this date?", countDays: "What is the date after this many days?", dateDuration: "How many days are between these dates?", convert: "Convert this time unit.", localTime: "What is the time in the target city?", difference: "What is the time difference?" },
+      questions: { read: "What time does the clock show?", set: "Set the hands to this time.", explore: "Drag the hands and observe the time shown.", seconds: "How many seconds does the second hand show?", schedule: "Which activity happens at this time?", system: "Choose the same time.", findEnd: "What time does the activity end?", findStart: "What time does the activity start?", duration: "How long is it between the two times?", timeMath: "What is the total duration?", weekday: "What weekday is this date?", countDays: "What is the date after this many days?", dateDuration: "How many days are between these dates?", convert: "Convert this time unit.", localTime: "What is the time in the target city?", difference: "What is the time difference?" },
       labels: { start: "Start", end: "End", unknown: "Find", later: "later", earlier: "earlier", date: "Date", base: "Given", target: "Find", hours: "hours", minutes: "minutes", seconds: "seconds", days: "days", weeks: "weeks", months: "months", years: "years", decades: "decades", centuries: "centuries", millennia: "millennia" },
       periods: { am: "a.m.", pm: "p.m." },
       weekdays: ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
@@ -131,15 +133,16 @@
       teacherIntro: "Enter values within this year's textbook scope.", hour: "Hour", minute: "Minute", period: "Period", duration: "Duration (minutes)", day: "Date", offsetDays: "Number of days", value: "Value", fromUnit: "From unit", toUnit: "To unit", baseCity: "Given city", targetCity: "Target city",
       chooseFirst: "Choose an answer first.", enterFirst: "Enter an answer first.", correct: "Correct!", wrong: "Not yet. Observe the visual again.",
       exactMinute: "Year 2 uses multiples of 5 minutes.", invalid: "Enter values within the range for this activity.", different: "Choose two different units or cities.",
-      ready: "Observe the visual, then choose an answer.", readySet: "Use the buttons to move the hands.",
+      ready: "Observe the visual, then choose an answer.", readySet: "Use the buttons to move the hands.", readyExplore: "Drag each hand. The digital time changes immediately.", shownTime: "Time shown",
+      hands: { hour: "Hour hand", minute: "Minute hand", second: "Second hand" },
       steps: ["Observe the time", "Try an answer", "Check and understand"],
       cities: { london: "London", riyadh: "Riyadh", delhi: "New Delhi", kuala: "Kuala Lumpur", tokyo: "Tokyo", perth: "Perth" }
     }
   };
 
   const curriculum = {
-    d2: { modes: ["clock","timeline","convert"], activities: { clock: ["read","set"], timeline: ["findEnd","findStart"], convert: ["basic"] } },
-    d3: { modes: ["clock","timeline","calendar","convert"], activities: { clock: ["read","seconds","schedule"], timeline: ["duration","timeMath"], calendar: ["weekday","countDays"], convert: ["mixed"] } },
+    d2: { modes: ["clock","timeline","convert"], activities: { clock: ["read","set","explore"], timeline: ["findEnd","findStart"], convert: ["basic"] } },
+    d3: { modes: ["clock","timeline","calendar","convert"], activities: { clock: ["read","explore","seconds","schedule"], timeline: ["duration","timeMath"], calendar: ["weekday","countDays"], convert: ["mixed"] } },
     d4: { modes: ["clock","timeline","calendar","convert"], activities: { clock: ["system"], timeline: ["duration","timeMath"], calendar: ["countDays"], convert: ["largeUnits","mixed"] } },
     d5: { modes: ["timeline","calendar","convert"], activities: { timeline: ["dateDuration","timeMath"], calendar: ["dateDuration"], convert: ["fractionDecimal"] } },
     d6: { modes: ["world"], activities: { world: ["localTime","difference"] } }
@@ -157,7 +160,8 @@
 
   const state = {
     lang: "bm", sound: true, level: "d2", mode: "clock", activity: "read", question: null,
-    selected: null, wrongSelection: null, solved: false, custom: false, clockInput: 0
+    selected: null, wrongSelection: null, solved: false, custom: false, clockInput: 0,
+    freeClock: { hour: 10, minute: 10, second: 30 }
   };
 
   const els = Object.fromEntries([
@@ -276,7 +280,7 @@
     els.activitySelect.value = state.activity;
     els.modeTitle.textContent = t()[`mode${state.mode[0].toUpperCase()}${state.mode.slice(1)}`];
     els.curriculumNote.textContent = t().notes[state.level];
-    els.howToText.textContent = t().howTo[state.mode];
+    els.howToText.textContent = state.activity === "explore" ? t().readyExplore : t().howTo[state.mode];
     els.soundToggle.setAttribute("aria-pressed",String(state.sound));
     els.soundToggle.querySelector("span:last-child").textContent = state.sound ? t().soundOn : t().soundOff;
     stepTexts.forEach((node,index) => { node.textContent = t().steps[index]; });
@@ -289,6 +293,7 @@
     state.solved = false;
     state.custom = custom;
     state.clockInput = question.type === "clockSet" ? 0 : state.clockInput;
+    if (question.type === "clockExplore") state.freeClock = { ...question.initial };
     els.celebrationLayer.replaceChildren();
     render();
   }
@@ -305,6 +310,16 @@
   }
 
   function makeClockQuestion(custom = null) {
+    if (state.activity === "explore") {
+      const includeSeconds = year() >= 3;
+      return {
+        type: "clockExplore",
+        prompt: t().questions.explore,
+        includeSeconds,
+        minuteStep: year() === 2 ? 5 : 1,
+        initial: { hour: 10, minute: 10, second: includeSeconds ? 30 : 0 }
+      };
+    }
     if (state.activity === "seconds") {
       const second = custom?.second ?? randomInt(1,11) * 5;
       const answer = `${second} ${t().labels.seconds}`;
@@ -517,7 +532,11 @@
     els.conceptStage.innerHTML = stageMarkup(q);
     renderAnswers(q);
     els.feedback.className = "feedback";
-    els.feedback.textContent = q.type === "clockSet" ? t().readySet : t().ready;
+    els.feedback.textContent = q.type === "clockSet" ? t().readySet : q.type === "clockExplore" ? t().readyExplore : t().ready;
+    const isExplore = q.type === "clockExplore";
+    els.checkBtn.hidden = isExplore;
+    els.teacherBtn.hidden = isExplore;
+    els.newQuestionBtn.hidden = isExplore;
     els.checkBtn.querySelector("span:last-child").textContent = state.solved ? t().next : t().check;
     bindDynamicEvents();
   }
@@ -538,6 +557,21 @@
   }
 
   function stageMarkup(q) {
+    if (q.type === "clockExplore") {
+      const time = state.freeClock;
+      const second = q.includeSeconds ? time.second : null;
+      const legend = [
+        `<span><i class="hand-key hour-key"></i>${t().hands.hour}</span>`,
+        `<span><i class="hand-key minute-key"></i>${t().hands.minute}</span>`,
+        q.includeSeconds ? `<span><i class="hand-key second-key"></i>${t().hands.second}</span>` : ""
+      ].join("");
+      return `<div class="clock-wrap free-clock-layout">${clockMarkup(time.hour,time.minute,second,true)}<div class="clock-readout">
+        <span class="clock-display-label">${t().shownTime}</span>
+        <div class="digital-time" id="freeClockReadout">${freeClockText()}</div>
+        <div class="hand-legend">${legend}</div>
+        <div class="drag-hint">☝️ ${t().readyExplore}</div>
+      </div></div>`;
+    }
     if (["clockRead","clockSet"].includes(q.type)) {
       const input = q.type === "clockSet" ? state.clockInput : q.hour * 60 + q.minute;
       const time = q.type === "clockSet" ? { hour: Math.floor(input/60)%12 || 12, minute: input%60 } : q;
@@ -556,11 +590,30 @@
     return worldMarkup(q);
   }
 
-  function clockMarkup(hour,minute,second = null) {
+  function clockMarkup(hour,minute,second = null,interactive = false) {
     const numbers = Array.from({length:12},(_,i) => `<span class="clock-number" style="--a:${(i+1)*30}deg">${i+1}</span>`).join("");
     const ticks = Array.from({length:60},(_,i) => `<i class="clock-tick" style="--a:${i*6}deg;${i%5 ? "height:5px;opacity:.45" : ""}"></i>`).join("");
     const hourAngle = (hour % 12) * 30 + minute * .5;
-    return `<div class="analog-clock" aria-label="${format12(hour,minute)}">${ticks}${numbers}<span class="clock-hand hour-hand" style="--hour:${hourAngle}deg"></span><span class="clock-hand minute-hand" style="--minute:${minute*6}deg"></span>${second != null ? `<span class="clock-hand second-hand" style="--second:${second*6}deg"></span>` : ""}<span class="clock-pin"></span></div>`;
+    const dragClass = interactive ? " draggable-hand" : "";
+    const dragAttr = hand => interactive ? ` data-hand="${hand}" role="slider" tabindex="0" aria-label="${t().hands[hand]}"` : "";
+    return `<div class="analog-clock${interactive ? " interactive-clock" : ""}"${interactive ? ' data-free-clock="true"' : ""} aria-label="${format12(hour,minute)}">${ticks}${numbers}<span class="clock-hand hour-hand${dragClass}"${dragAttr("hour")} style="--hour:${hourAngle}deg"></span><span class="clock-hand minute-hand${dragClass}"${dragAttr("minute")} style="--minute:${minute*6}deg"></span>${second != null ? `<span class="clock-hand second-hand${dragClass}"${dragAttr("second")} style="--second:${second*6}deg"></span>` : ""}<span class="clock-pin"></span></div>`;
+  }
+
+  function freeClockText() {
+    const { hour,minute,second } = state.freeClock;
+    return `${pad(hour)}:${pad(minute)}${state.question?.includeSeconds ? `:${pad(second)}` : ""}`;
+  }
+
+  function updateFreeClockDom() {
+    const clock = document.querySelector("[data-free-clock]");
+    if (!clock) return;
+    const { hour,minute,second } = state.freeClock;
+    clock.querySelector(".hour-hand")?.style.setProperty("--hour",`${(hour % 12) * 30 + minute * .5}deg`);
+    clock.querySelector(".minute-hand")?.style.setProperty("--minute",`${minute * 6}deg`);
+    clock.querySelector(".second-hand")?.style.setProperty("--second",`${second * 6}deg`);
+    clock.setAttribute("aria-label",freeClockText());
+    const readout = document.getElementById("freeClockReadout");
+    if (readout) readout.textContent = freeClockText();
   }
 
   function scheduleMarkup(q) {
@@ -607,7 +660,7 @@
   }
 
   function renderAnswers(q) {
-    if (q.type === "clockSet") {
+    if (["clockSet","clockExplore"].includes(q.type)) {
       els.answerZone.innerHTML = "";
       return;
     }
@@ -636,11 +689,76 @@
       els.conceptStage.innerHTML = stageMarkup(state.question);
       bindDynamicEvents();
     }));
+    bindFreeClock();
+  }
+
+  function bindFreeClock() {
+    const clock = document.querySelector("[data-free-clock]");
+    if (!clock) return;
+    let activeHand = null;
+    let activePointer = null;
+
+    const updateFromPointer = event => {
+      if (!activeHand) return;
+      const rect = clock.getBoundingClientRect();
+      const x = event.clientX - (rect.left + rect.width / 2);
+      const y = event.clientY - (rect.top + rect.height / 2);
+      const angle = (Math.atan2(x,-y) * 180 / Math.PI + 360) % 360;
+      if (activeHand === "hour") {
+        const adjusted = (angle - state.freeClock.minute * .5 + 360) % 360;
+        const position = Math.round(adjusted / 30) % 12;
+        state.freeClock.hour = position || 12;
+      } else if (activeHand === "minute") {
+        const step = state.question.minuteStep || 1;
+        const previous = state.freeClock.minute;
+        const raw = Math.round(angle / 6) % 60;
+        const next = (Math.round(raw / step) * step) % 60;
+        if (previous >= 45 && next <= 15) state.freeClock.hour = state.freeClock.hour === 12 ? 1 : state.freeClock.hour + 1;
+        if (previous <= 15 && next >= 45) state.freeClock.hour = state.freeClock.hour === 1 ? 12 : state.freeClock.hour - 1;
+        state.freeClock.minute = next;
+      } else {
+        state.freeClock.second = Math.round(angle / 6) % 60;
+      }
+      updateFreeClockDom();
+    };
+
+    clock.querySelectorAll("[data-hand]").forEach(hand => {
+      hand.addEventListener("pointerdown",event => {
+        event.preventDefault();
+        activeHand = hand.dataset.hand;
+        activePointer = event.pointerId;
+        hand.classList.add("dragging");
+        try { clock.setPointerCapture(activePointer); } catch (_) { /* Synthetic events may not own capture. */ }
+        updateFromPointer(event);
+      });
+      hand.addEventListener("keydown",event => {
+        if (!["ArrowLeft","ArrowDown","ArrowRight","ArrowUp"].includes(event.key)) return;
+        event.preventDefault();
+        const direction = ["ArrowRight","ArrowUp"].includes(event.key) ? 1 : -1;
+        const type = hand.dataset.hand;
+        if (type === "hour") state.freeClock.hour = ((state.freeClock.hour - 1 + direction + 12) % 12) + 1;
+        if (type === "minute") state.freeClock.minute = (state.freeClock.minute + direction * (state.question.minuteStep || 1) + 60) % 60;
+        if (type === "second") state.freeClock.second = (state.freeClock.second + direction + 60) % 60;
+        updateFreeClockDom();
+        playTone("click");
+      });
+    });
+    clock.addEventListener("pointermove",updateFromPointer);
+    const finishDrag = () => {
+      if (!activeHand) return;
+      clock.querySelector(`[data-hand="${activeHand}"]`)?.classList.remove("dragging");
+      activeHand = null;
+      activePointer = null;
+      playTone("click");
+    };
+    clock.addEventListener("pointerup",finishDrag);
+    clock.addEventListener("pointercancel",finishDrag);
   }
 
   function checkAnswer() {
     if (state.solved) { generateQuestion(); playTone("click"); return; }
     const q = state.question;
+    if (q.type === "clockExplore") return;
     const correct = q.type === "clockSet" ? state.clockInput === q.answer % 720 : state.selected === q.answer;
     if (q.type !== "clockSet" && state.selected == null) {
       els.feedback.className = "feedback error";
@@ -686,6 +804,7 @@
     state.wrongSelection = null;
     state.solved = false;
     if (state.question.type === "clockSet") state.clockInput = 0;
+    if (state.question.type === "clockExplore") state.freeClock = { ...state.question.initial };
     render();
     playTone("click");
   }

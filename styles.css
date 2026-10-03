@@ -46,7 +46,7 @@ button:focus-visible, select:focus-visible, input:focus-visible {
   z-index: 2;
   width: min(1240px, calc(100% - 32px));
   margin: 0 auto;
-  padding: 22px 0 135px;
+  padding: 22px 0 30px;
 }
 
 .topbar, .header-actions, .brand, .prompt-row, .answer-actions, .modal-actions {
@@ -302,16 +302,30 @@ select:focus, input:focus { border-color: var(--orange); box-shadow: 0 0 0 4px r
   background: radial-gradient(circle at 50% 50%,#fffef8 0 62%,#fff0b6 63% 100%);
   box-shadow: 0 10px 25px rgba(95,67,28,.18), inset 0 0 0 3px #f4ce66;
 }
-.clock-number { position: absolute; left: 50%; top: 50%; width: 34px; height: 34px; margin: -17px; display: grid; place-items: center; font-size: 17px; font-weight: 900; transform: rotate(var(--a)) translateY(-94px) rotate(calc(-1 * var(--a))); }
-.clock-tick { position: absolute; left: 50%; top: 50%; width: 2px; height: 8px; margin-left: -1px; margin-top: -4px; background: #8c6a30; transform: rotate(var(--a)) translateY(-111px); transform-origin: center; }
+.clock-number { position: absolute; left: 50%; top: 50%; width: 34px; height: 34px; margin: -17px; display: grid; place-items: center; font-size: 17px; font-weight: 900; transform: rotate(var(--a)) translateY(-94px) rotate(calc(-1 * var(--a))); pointer-events: none; }
+.clock-tick { position: absolute; left: 50%; top: 50%; width: 2px; height: 8px; margin-left: -1px; margin-top: -4px; background: #8c6a30; transform: rotate(var(--a)) translateY(-111px); transform-origin: center; pointer-events: none; }
 .clock-hand { position: absolute; left: 50%; bottom: 50%; border-radius: 999px; transform-origin: 50% 100%; }
-.hour-hand { width: 8px; height: 62px; margin-left: -4px; background: var(--green-dark); transform: rotate(var(--hour)); }
-.minute-hand { width: 5px; height: 88px; margin-left: -2.5px; background: var(--blue); transform: rotate(var(--minute)); }
-.second-hand { width: 2px; height: 92px; margin-left: -1px; background: var(--red); transform: rotate(var(--second)); }
-.clock-pin { position: absolute; left: 50%; top: 50%; width: 19px; height: 19px; margin: -9.5px; border: 4px solid white; border-radius: 50%; background: var(--orange); box-shadow: 0 1px 4px rgba(0,0,0,.25); }
+.hour-hand { z-index: 2; width: 8px; height: 62px; margin-left: -4px; background: var(--green-dark); transform: rotate(var(--hour)); }
+.minute-hand { z-index: 3; width: 5px; height: 88px; margin-left: -2.5px; background: var(--blue); transform: rotate(var(--minute)); }
+.second-hand { z-index: 4; width: 2px; height: 92px; margin-left: -1px; background: var(--red); transform: rotate(var(--second)); }
+.clock-pin { position: absolute; z-index: 6; left: 50%; top: 50%; width: 19px; height: 19px; margin: -9.5px; border: 4px solid white; border-radius: 50%; background: var(--orange); box-shadow: 0 1px 4px rgba(0,0,0,.25); pointer-events: none; }
 .clock-readout { display: grid; gap: 12px; min-width: 200px; }
 .digital-time { padding: 14px 18px; text-align: center; color: var(--green-dark); font: 900 clamp(32px,5vw,54px)/1 "Courier New",monospace; letter-spacing: .04em; border: 3px solid #294b43; border-radius: 15px; background: #e7fff7; box-shadow: inset 0 0 0 4px rgba(53,165,140,.14); }
 .period-label { text-align: center; color: var(--muted); font-weight: 850; }
+.interactive-clock { touch-action: none; user-select: none; }
+.draggable-hand { cursor: grab; outline: none; }
+.draggable-hand.dragging { cursor: grabbing; filter: brightness(1.2); }
+.draggable-hand::after { content: ""; position: absolute; left: 50%; top: -12px; bottom: -12px; width: 32px; transform: translateX(-50%); border-radius: 999px; }
+.draggable-hand::before { content: ""; position: absolute; left: 50%; top: -10px; width: 17px; height: 17px; transform: translateX(-50%); border: 3px solid white; border-radius: 50%; background: inherit; box-shadow: 0 1px 5px rgba(0,0,0,.3); }
+.draggable-hand:focus-visible::before { box-shadow: 0 0 0 5px rgba(239,152,55,.35), 0 1px 5px rgba(0,0,0,.3); }
+.clock-display-label { text-align: center; color: var(--muted); font-size: 13px; font-weight: 900; }
+.hand-legend { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px 14px; color: var(--muted); font-size: 12px; font-weight: 850; }
+.hand-legend span { display: inline-flex; align-items: center; gap: 6px; }
+.hand-key { display: inline-block; width: 18px; height: 6px; border-radius: 99px; }
+.hour-key { background: var(--green-dark); }
+.minute-key { background: var(--blue); }
+.second-key { height: 3px; background: var(--red); }
+.drag-hint { padding: 10px 12px; text-align: center; color: #704d1b; font-size: 13px; font-weight: 800; line-height: 1.35; border-radius: 12px; background: #fff4cb; }
 .clock-controls { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
 .clock-controls button { min-height: 45px; color: var(--ink); font-weight: 900; border: 2px solid var(--brown); border-radius: 11px; background: #ffecb2; }
 .clock-controls button:hover { background: #ffda7d; }
@@ -383,8 +397,8 @@ select:focus, input:focus { border-color: var(--orange); box-shadow: 0 0 0 4px r
 .confetti { position: absolute; top: -20px; width: 12px; height: 18px; border-radius: 3px; animation: fall 1.4s ease-in forwards; }
 @keyframes fall { to { transform: translate(var(--drift),650px) rotate(720deg); opacity: 0; } }
 
-.forest-footer { position: fixed; z-index: 1; left: 0; right: 0; bottom: 0; height: 120px; overflow: hidden; pointer-events: none; }
-.forest-footer img { width: 100%; height: 100%; object-fit: cover; object-position: center bottom; opacity: .98; }
+.forest-footer { position: fixed; z-index: 0; left: 0; right: 0; bottom: 0; height: clamp(130px, 22vw, 270px); overflow: hidden; pointer-events: none; }
+.forest-footer img { position: absolute; left: 50%; bottom: -1px; width: max(100%, 900px); height: 100%; object-fit: fill; transform: translateX(-50%); filter: saturate(1.25) brightness(1.28); }
 
 @media (max-width: 980px) {
   .mode-tabs { grid-template-columns: repeat(3,1fr); }
@@ -447,5 +461,4 @@ select:focus, input:focus { border-color: var(--orange); box-shadow: 0 0 0 4px r
   .teacher-fields { grid-template-columns: 1fr; }
   .teacher-fields .wide { grid-column: auto; }
   .answer-actions { flex-wrap: wrap; }
-  .forest-footer { height: 90px; }
 }
