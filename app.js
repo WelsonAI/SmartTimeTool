@@ -171,6 +171,8 @@
   ].map(id => [id, document.getElementById(id)]));
   const stepTexts = [document.getElementById("stepOne"),document.getElementById("stepTwo"),document.getElementById("stepThree")];
   let audioContext = null;
+  let lastGearTickAt = 0;
+  let gearTickHigh = false;
 
   const t = () => translations[state.lang];
   const year = () => Number(state.level.slice(1));
@@ -240,6 +242,30 @@
         oscillator.start(now + index * .09);
         oscillator.stop(now + index * .09 + .16);
       });
+    } catch (_) { /* Sound is optional when the browser blocks Web Audio. */ }
+  }
+
+  function playGearTick() {
+    if (!state.sound) return;
+    const wallTime = performance.now();
+    if (wallTime - lastGearTickAt < 28) return;
+    lastGearTickAt = wallTime;
+    try {
+      audioContext ??= new (window.AudioContext || window.webkitAudioContext)();
+      if (audioContext.state === "suspended") audioContext.resume();
+      const now = audioContext.currentTime;
+      const oscillator = audioContext.createOscillator();
+      const gain = audioContext.createGain();
+      oscillator.type = "square";
+      oscillator.frequency.setValueAtTime(gearTickHigh ? 245 : 190,now);
+      oscillator.frequency.exponentialRampToValueAtTime(85,now + .035);
+      gain.gain.setValueAtTime(.0001,now);
+      gain.gain.exponentialRampToValueAtTime(.045,now + .003);
+      gain.gain.exponentialRampToValueAtTime(.0001,now + .04);
+      oscillator.connect(gain).connect(audioContext.destination);
+      oscillator.start(now);
+      oscillator.stop(now + .045);
+      gearTickHigh = !gearTickHigh;
     } catch (_) { /* Sound is optional when the browser blocks Web Audio. */ }
   }
 
@@ -700,6 +726,7 @@
 
     const updateFromPointer = event => {
       if (!activeHand) return;
+      const before = `${state.freeClock.hour}:${state.freeClock.minute}:${state.freeClock.second}`;
       const rect = clock.getBoundingClientRect();
       const x = event.clientX - (rect.left + rect.width / 2);
       const y = event.clientY - (rect.top + rect.height / 2);
@@ -720,6 +747,8 @@
         state.freeClock.second = Math.round(angle / 6) % 60;
       }
       updateFreeClockDom();
+      const after = `${state.freeClock.hour}:${state.freeClock.minute}:${state.freeClock.second}`;
+      if (after !== before) playGearTick();
     };
 
     clock.querySelectorAll("[data-hand]").forEach(hand => {
@@ -740,7 +769,7 @@
         if (type === "minute") state.freeClock.minute = (state.freeClock.minute + direction * (state.question.minuteStep || 1) + 60) % 60;
         if (type === "second") state.freeClock.second = (state.freeClock.second + direction + 60) % 60;
         updateFreeClockDom();
-        playTone("click");
+        playGearTick();
       });
     });
     clock.addEventListener("pointermove",updateFromPointer);
@@ -749,7 +778,6 @@
       clock.querySelector(`[data-hand="${activeHand}"]`)?.classList.remove("dragging");
       activeHand = null;
       activePointer = null;
-      playTone("click");
     };
     clock.addEventListener("pointerup",finishDrag);
     clock.addEventListener("pointercancel",finishDrag);
